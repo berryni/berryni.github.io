@@ -4,12 +4,8 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
-
-### More Information
-
-A place to include any other types of information that you'd like to include about yourself.
+I am a Ph.D. student in Statistics at Iowa State University, and graduated from Texas A&M in 2013. My research is primarily in Unsupervised learning, specifically clustering. I have also done research in graphical models - using Bayesian Networks to perform continuous biometric authentication and detecting underlying graph structures for bacterial microbiomes.
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[berryni@iastate.edu](mailto:berryni@iastate.edu)
