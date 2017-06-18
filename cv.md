@@ -2,7 +2,4 @@
 layout: default
 ---
 
-# Nick Berry
-## Iowa State
-
-asdf
+CV coming soon...ish
