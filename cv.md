@@ -2,7 +2,7 @@
 layout: default
 ---
 
-#Nick Berry
+# Nick Berry
 ## Iowa State
 
 asdf
