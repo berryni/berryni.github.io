@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Buffon Estimation
+date: 2017-6-17
 ---
 
 ### A Basic Shiny Application
