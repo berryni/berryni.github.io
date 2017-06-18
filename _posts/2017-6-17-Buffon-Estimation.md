@@ -6,9 +6,11 @@ date: 2017-6-17
 
 ### A Basic Shiny Application
 
-This is just a simple little application that runs a [Buffon Estimation](http://en.wikipedia.org/wiki/Buffon's_needle) of Pi simulation for a number of needles specified by a slider. It is meant to be a simple example for anyone looking to learn a little about the Shiny package for R. To run the code, make sure to load the Shiny package (`library(shiny)`), and run the following line in the R console.
+This is just a simple little application that runs a [Buffon Estimation](http://en.wikipedia.org/wiki/Buffon's_needle) of Pi simulation for a number of needles specified by a slider. It is meant to be a simple example for anyone looking to learn a little about the Shiny package for R. To run the code, make sure to install and load the Shiny package, and use the runGist function as follows.
 
 ```
+install.packages("shiny") #If necessary
+library(shiny)
 shiny::runGist("7328111")
 ```
 
