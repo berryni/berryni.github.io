@@ -1,0 +1,206 @@
+
+\documentclass[letterpaper,12pt]{article}
+\newlength{\outerbordwidth}
+\pagestyle{empty}
+\raggedbottom
+\raggedright
+\usepackage[svgnames]{xcolor}
+\usepackage{framed}
+\usepackage{tocloft}
+\usepackage{etoolbox}
+\robustify\cftdotfill
+
+
+%-----------------------------------------------------------
+%Edit these values as you see fit
+
+\setlength{\outerbordwidth}{3pt}  % Width of border outside of title bars
+\definecolor{shadecolor}{gray}{0.55}  % Outer background color of title bars (0 = black, 1 = white)
+\definecolor{shadecolorB}{gray}{0.96}  % Inner background color of title bars
+
+
+%-----------------------------------------------------------
+%Margin setup
+
+\setlength{\evensidemargin}{-0.25in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\paperheight}{11in}
+\setlength{\paperwidth}{8.5in}
+\setlength{\tabcolsep}{0in}
+\setlength{\textheight}{9.5in}
+\setlength{\textwidth}{7in}
+\setlength{\topmargin}{-0.3in}
+\setlength{\topskip}{0in}
+\setlength{\voffset}{0.1in}
+
+
+%-----------------------------------------------------------
+%Custom commands
+\newcommand{\resitem}[1]{\item #1 \vspace{-2pt}}
+\newcommand{\resheading}[1]{\vspace{8pt}
+  \parbox{\textwidth}{\setlength{\FrameSep}{\outerbordwidth}
+    \begin{shaded}
+\setlength{\fboxsep}{0pt}\framebox[\textwidth][l]{\setlength{\fboxsep}{4pt}\fcolorbox{shadecolorB}{shadecolorB}{\textbf{\sffamily{\mbox{~}\makebox[6.762in][l]{\large #1} \vphantom{p\^{E}}}}}}
+    \end{shaded}
+  }\vspace{-5pt}
+}
+\newcommand{\ressubheading}[4]{
+\begin{tabular*}{6.5in}{l@{\cftdotfill{\cftsecdotsep}\extracolsep{\fill}}r}
+		\textbf{#1} & #2 \\
+		\textit{#3} & \textit{#4} \\
+\end{tabular*}\vspace{-6pt}}
+
+\newcommand{\ressubheadingone}[3]{
+\begin{tabular*}{6.5in}{l@{\cftdotfill{\cftsecdotsep}\extracolsep{\fill}}r}
+		\textbf{#1} & \begin{tabular}{@{}r@{}}#2 \\ #3\end{tabular}
+\end{tabular*}\vspace{-6pt}}
+
+\newcommand{\dateitem}[2]{\item #1 \hfill #2 \vspace{-2pt}}%-----------------------------------------------------------
+
+
+\begin{document}
+
+\begin{tabular*}{7in}{l@{\extracolsep{\fill}}r}
+\textbf{\Huge Nicholas S. Berry} & \textbf{\today} \\
+Graduate Student at Iowa State University & berryni@iastate.edu \\
+1612 Burnett Ave., Ames, IA. 50010. & https://berryni.github.io\\
+\end{tabular*}
+\\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resheading{Education}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+
+\item
+	\ressubheading{Iowa State University}{Ames, IA}{Ph.D. Statistics \& M.S. Statistics}{2013 - 2018 (expected)}
+	\begin{itemize}
+		\resitem{Research in unsupervised learning, especially clustering, as well as graphical models, including Dynamic Bayesian Networks and Gaussian Graphical Models.}
+      	 	\resitem{Committee: Prof. Ranjan Maitra (advisor), Prof. George Amariucai, Prof. Dan Nettleton, Prof. Vivekananda Roy, Dr. William Meeker}
+	\end{itemize}
+
+\item
+	\ressubheading{Texas A\&M University}{College Station, TX}{B.S. Applied Mathematics, emphasis in Statistics}{2009 - 2013}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resheading{Research Experience}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+\item
+	\ressubheading{Iowa State University}{Ames, IA}{Center for Statistics and Applications in Forensic Evidence}{Fall 2017 - }
+	\begin{itemize}
+		\resitem{Digital Forensics Analysis}
+	\end{itemize}
+\item
+	\ressubheading{MD Anderson Cancer Center}{Houston, TX}{Graduate Researcher under Drs. Min Jin Ha and Kim-Ahn Do}{Summer 2017}
+	\begin{itemize}
+		\resitem{Created pipeline for analysis of underlying graph structures for Microbiome data}
+    		\resitem{Estimation and differential network analysis for sub-group specific Microbiome data}
+	\end{itemize}
+\item
+	\ressubheading{Iowa State University}{Ames, IA}{Graduate Researcher under Dr. George Amariucai}{Fall 2015 - Spring 2017}
+	\begin{itemize}
+		\resitem{Continuous Biometric Authentication via Dynamic Bayesian Networks}
+		\resitem{Eliminating positive feedback for connected authenticating devices}
+	\end{itemize}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resheading{Teaching Experience}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+\item
+	\ressubheadingone{Instructor}{Iowa State University}{Ames, IA}
+	\begin{itemize}
+		\resitem{Stat 104: Fall 2014, Spring 2015, Fall 2015}
+	\end{itemize}
+\item
+	\ressubheadingone{Grader}{Iowa State University}{Ames, IA}
+	\begin{itemize}
+		\resitem{Stat 401: Summer 2015}
+		\resitem{Stat 101: Fall 2013, Spring 2014, Summer 2014}
+	\end{itemize}
+\end{itemize}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\resheading{Publications}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{enumerate}
+% \item SC Clark, {\it PARALLEL MACHINE LEARNING ALGORITHMS IN BIOINFORMATICS AND GLOBAL OPTIMIZATION}. PhD Thesis in Applied Mathematics, Cornell University, May 2012.
+% \item SC Clark, R Egan, P Frazier, and Z Wang, {\it ALE: an Assembly Likelihood Evaluation Framework to Assess the
+%     Accuracy of Metagenome Assemblies} {\it Bioinformatics}  {\bf 29}, 4, 435-443 (2013).
+% \item SC Clark, N Hengartner, and J Berendzen, {\it Velvetrope: a parallel, bitwise algorithm for ?nding homologous regions within multiple sequences} submitted to {\it BMC Bioinformatics} (2010).
+% \item SC Clark, {\it Solving Genomic Jigsaws}. DEIXIS Magazine {\bf 8} 30--32 (2010).
+% \item KC Kunes, SC Clark, DL Cox, and RR Singh, {\it Left handed ? helix models for mammalian prion fibrils.} Prion {\bf 2}, 2, 81--90 (2008).
+%\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resheading{Skills}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+
+\item {\bf Statistics}
+\begin{itemize}
+\resitem{Advanced statistical methods, including spatial, time series, advanced likelihood topics, and Bayesian inference}
+\resitem{Statistical Computing (in R \& C) -- Advanced MCMC methods, clustering algorithms, EM, Bootstrap/Jackknife}
+\resitem{Measure \& Probability Theory}
+\end{itemize}
+
+\item {\bf Programming/Software}
+\begin{itemize}
+\resitem{Fluent in R, C, C++, and Python}
+\resitem{Extensive use of Java and SAS}
+\resitem{Broad understanding of data structures and algorithms}
+\resitem{Proficient with \LaTeX, the tidyverse, git, and dynamic document creation}
+\end{itemize}
+
+\item I am science literate, allowing me to work on and quickly pick up applications across many different areas.
+\item Good presenter and public speaker
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resheading{Presentations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+\item
+	\ressubheadingone{Digital Forensics Workshop}{Washington D.C.}{\em May 2017}
+	\begin{itemize}
+    		\resitem{Continuous Biometric Authentication and Sequential Updating of Beliefs}
+	\end{itemize}
+\item
+	\ressubheadingone{Statistical Learning Working Group}{Iowa State University}{\em October 2016}
+	\begin{itemize}
+    		\resitem{Continuous Authentication in Challenging Environments via Dynamic Bayesian Networks}
+	\end{itemize}
+\item
+	\ressubheadingone{Joint Statistical Meetings}{Baltimore, MD}{\em August 2017}
+	\begin{itemize}
+    		\resitem{Variable Selection in K-means Clustering}
+	\end{itemize}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resheading{Awards}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+ 	\item
+ 		\ressubheadingone{Graduate Teaching Award}{Iowa State University}{\em April 2016}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\resheading{Other Projects}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+\item {\em International Champions Cup Ticket Sales \hfill Summer 2014}
+\begin{itemize}
+\resitem{Consulted on project to model and predict final ticket sales for Soccer games in US based on data from previous year.}
+\resitem{Made accurate predictions, despite those predictions being much different than anticipated by company.}
+\end{itemize}
+\end{itemize}
+\end{document}
