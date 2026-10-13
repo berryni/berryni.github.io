@@ -1,7 +1,7 @@
 /*
  * Homepage interactions: typewriter title block, revision history,
  * the reading-depth chart (Fig. 2), and the little 8-bit author who hops
- * between headings as you scroll.
+ * between headings and boxes (the `data-plat` elements) as you scroll.
  *
  * The revision text lives in the <script id="revisions"> block in
  * index.html. Set either option below to false to turn that piece off.
@@ -14,7 +14,6 @@
     author: true      // show the 8-bit author
   };
 
-  var PAUSE = 9;      // keystrokes spent staring at a typo before backspacing
   var TICK_MS = 30;
   var BARS = 40;
 
@@ -50,12 +49,8 @@
 
     var el = {
       name: q('[data-type="name"]'),
-      sub: q('[data-type="sub"]'),
       abstract: q('[data-type="abstract"]'),
-      subGhost: q('[data-ghost="sub"]'),
       absGhost: q('[data-ghost="abstract"]'),
-      caretName: q('[data-caret="name"]'),
-      caretSub: q('[data-caret="sub"]'),
       caretAbs: q('[data-caret="abstract"]'),
       stampCurrent: q('[data-stamp="current"]'),
       stampOld: q('[data-stamp="old"]'),
@@ -71,47 +66,18 @@
 
     function isText(op) { return op.text != null; }
 
-    function cost(ops) {
-      var c = 0;
-      ops.forEach(function (op) { c += isText(op) ? op.text.length : 2 * op.wrong.length + PAUSE + op.right.length; });
-      return c;
-    }
-
     function fullText(ops) {
       return ops.map(function (op) { return isText(op) ? op.text : op.right; }).join('');
     }
 
-    // The text on the page after the first n keystrokes of ops. A typo step
-    // types the wrong letters, pauses, backspaces them, then types the right ones.
-    function typed(ops, n) {
-      var out = '';
-      for (var i = 0; i < ops.length && n > 0; i++) {
-        var op = ops[i];
-        if (isText(op)) {
-          out += op.text.slice(0, n);
-          n -= op.text.length;
-          continue;
-        }
-        var w = op.wrong.length;
-        if (n < w + PAUSE) return out + op.wrong.slice(0, n);
-        var erased = n - w - PAUSE;
-        if (erased < w) return out + op.wrong.slice(0, w - erased);
-        out += op.right.slice(0, erased - w);
-        n -= 2 * w + PAUSE + op.right.length;
-      }
-      return out;
-    }
-
     function plan(rev, retype) {
       var R = REVS[rev];
-      var sp = retype ? { sub: 3, abs: 7 } : { sub: 1.4, abs: 3.5 };
+      var sp = retype ? { abs: 7 } : { abs: 3.5 };
       var nameStart = 8;
       var nameEnd = retype ? 0 : nameStart + NAME.length;
-      var subStart = retype ? 2 : nameEnd + 10;
-      var subEnd = subStart + Math.ceil(cost(R.subtitle) / sp.sub);
-      var absStart = subEnd + (retype ? 4 : 10);
+      var absStart = nameEnd + (retype ? 2 : 10);
       var absEnd = absStart + Math.ceil(R.abstract.length / sp.abs);
-      return { R: R, sp: sp, retype: retype, nameStart: nameStart, subStart: subStart, absStart: absStart, end: absEnd };
+      return { R: R, sp: sp, retype: retype, nameStart: nameStart, absStart: absStart, end: absEnd };
     }
 
     function renderTyping() {
@@ -121,19 +87,14 @@
       function prog(start, speed) { return Math.max(0, Math.floor((clk - start) * speed)); }
 
       var nameN = p.retype ? Infinity : prog(p.nameStart, 1);
-      var subN = prog(p.subStart, p.sp.sub);
       var absN = prog(p.absStart, p.sp.abs);
       var nameDone = nameN >= NAME.length;
-      var subDone = subN >= cost(R.subtitle);
       var absDone = absN >= R.abstract.length;
 
       el.name.textContent = NAME.slice(0, nameN);
-      el.sub.textContent = typed(R.subtitle, subN);
       el.abstract.textContent = R.abstract.slice(0, absN);
 
-      el.caretName.hidden = !(!nameDone || (subDone && absDone));
-      el.caretSub.hidden = !(nameDone && !subDone);
-      el.caretAbs.hidden = !(nameDone && subDone && !absDone);
+      el.caretAbs.hidden = !(nameDone && !absDone);
     }
 
     function renderRev() {
@@ -147,7 +108,6 @@
       bind('caption', R.caption || '');
       bind('sub', sub);
       bind('abstract', R.abstract);
-      el.subGhost.textContent = sub + '_';
       el.absGhost.textContent = R.abstract + '_';
       if (el.photo && R.photo) {
         el.photo.src = R.photo;
@@ -202,8 +162,10 @@
     function pct(v) { return Math.round((v || 0) * 100) + '%'; }
 
     function sampleDepth() {
-      var r = root.getBoundingClientRect();
-      var d = Math.max(0, Math.min(1, (window.innerHeight - r.top) / Math.max(1, r.height)));
+      // 0 at the top of the page, 1 once scrolled all the way to the bottom
+      // (or if the whole page fits on screen).
+      var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      var d = maxScroll > 0 ? Math.max(0, Math.min(1, window.scrollY / maxScroll)) : 1;
       state.samples = state.samples.concat([d]).slice(-BARS);
       state.maxDepth = Math.max(state.maxDepth, d);
 
@@ -234,13 +196,91 @@
       return { x: r.left, y: r.top };
     }
 
+    /*
+     * Surfaces the author can stand on. A plain `data-plat` element is a box
+     * with a drawn top edge (tilted if the box is rotated); `data-plat="text"`
+     * means the tops of the letters on its first line, from where the text
+     * starts to where it ends. Each surface is { el, top, left, right, slope }
+     * in viewport pixels, with `top` measured at `left`.
+     */
     function platforms() {
       var list = [];
       qa('[data-plat]').forEach(function (node) {
         var r = node.getBoundingClientRect();
-        if (r.width > 60) list.push({ el: node, top: r.top, left: r.left, right: r.right });
+        var p = node.getAttribute('data-plat') === 'text' ? textPlat(node, r) : boxPlat(node, r);
+        if (p && p.right - p.left > 60) { p.el = node; list.push(p); }
       });
       return list;
+    }
+
+    function yAt(p, x) { return p.top + (x - p.left) * p.slope; }
+
+    function boxPlat(node, r) {
+      var tf = getComputedStyle(node).transform;
+      var m = tf && tf !== 'none' ? tf.match(/-?[\d.]+(?:e-?\d+)?/g).map(Number) : null;
+      var a = m ? Math.atan2(m[1], m[0]) : 0;
+      if (!a) return { top: r.top, left: r.left, right: r.right, slope: 0 };
+      var hw = node.offsetWidth / 2 * Math.cos(a);
+      var cx = (r.left + r.right) / 2 + node.offsetHeight / 2 * Math.sin(a);
+      var cy = (r.top + r.bottom) / 2 - node.offsetHeight / 2 * Math.cos(a);
+      return { top: cy - hw * Math.tan(a), left: cx - hw, right: cx + hw, slope: Math.tan(a) };
+    }
+
+    // Text surfaces are measured relative to their element and remeasured
+    // only when its size or text changes (or a web font finishes loading).
+    var textCache = new WeakMap();
+    var inkCache = {};
+    var measureCtx = document.createElement('canvas').getContext('2d');
+    if (document.fonts) {
+      document.fonts.addEventListener('loadingdone', function () { textCache = new WeakMap(); inkCache = {}; });
+    }
+
+    function textPlat(node, r) {
+      var sig = r.width + 'x' + r.height + ':' + node.textContent.length;
+      var c = textCache.get(node);
+      if (!c || c.sig !== sig) {
+        var s = textSurface(node);
+        c = { sig: sig, s: s && { dy: s.top - r.top, dl: s.left - r.left, dr: s.right - r.left } };
+        textCache.set(node, c);
+      }
+      return c.s && { top: r.top + c.s.dy, left: r.left + c.s.dl, right: r.left + c.s.dr, slope: 0 };
+    }
+
+    function textSurface(node) {
+      var rects = [];
+      var range = document.createRange();
+      var walk = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+      for (var t = walk.nextNode(); t; t = walk.nextNode()) {
+        if (!t.data.trim() || t.parentNode.closest('.ghost, .sr-only, [hidden]')) continue;
+        range.selectNodeContents(t);
+        var inset = inkInset(t);
+        Array.prototype.forEach.call(range.getClientRects(), function (q) {
+          if (q.width > 0) rects.push({ top: q.top, bottom: q.bottom, left: q.left, right: q.right, ink: q.top + inset });
+        });
+      }
+      if (!rects.length) return null;
+      var lineEnd = Math.min.apply(null, rects.map(function (q) { return q.bottom; }));
+      var line = rects.filter(function (q) { return q.top < lineEnd; });
+      return {
+        top: Math.min.apply(null, line.map(function (q) { return q.ink; })),
+        left: Math.min.apply(null, line.map(function (q) { return q.left; })),
+        right: Math.max.apply(null, line.map(function (q) { return q.right; }))
+      };
+    }
+
+    // Gap between the top of a line of text and the top of its tallest letter.
+    function inkInset(t) {
+      var cs = getComputedStyle(t.parentNode);
+      var font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+      var key = font + '|' + t.data;
+      if (!(key in inkCache)) {
+        measureCtx.font = font;
+        var m = measureCtx.measureText(t.data.trim());
+        inkCache[key] = m.fontBoundingBoxAscent != null
+          ? Math.max(0, m.fontBoundingBoxAscent - m.actualBoundingBoxAscent)
+          : parseFloat(cs.fontSize) * 0.2;
+      }
+      return inkCache[key];
     }
 
     function targetPlat(plats, vh) {
@@ -280,7 +320,7 @@
       if (hero.jump) {
         var j = hero.jump;
         var jp = find(j.plat);
-        var ey = jp ? jp.top - o.y : j.sy;
+        var ey = jp ? yAt(jp, j.ex + o.x + SPRITE_W / 2) - o.y : j.sy;
         var u = Math.min(1, (now - j.t0) / j.dur);
         hero.x = j.sx + (j.ex - j.sx) * u;
         hero.y = j.sy + (ey - j.sy) * u - j.h * 4 * u * (1 - u);
@@ -299,9 +339,9 @@
         if (t) jumpTo(t, Math.max(t.left - o.x, Math.min(t.right - o.x - SPRITE_W - 2, hero.x)), 60, 500);
         return;
       }
-      hero.y = cur.top - o.y;
       var minX = cur.left - o.x + 2, maxX = cur.right - o.x - SPRITE_W;
       hero.x = Math.max(minX, Math.min(maxX, hero.x));
+      hero.y = yAt(cur, hero.x + o.x + SPRITE_W / 2) - o.y;
       var offscreen = cur.top < 40 || cur.top > vh - 20;
 
       if (scrolling || offscreen) {
