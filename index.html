@@ -1,14 +1,253 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nicholas S. Berry – Senior Statistical Scientist, Berry Consultants</title>
+  <meta name="description" content="Nicholas S. Berry, PhD. Senior Statistical Scientist at Berry Consultants, developing the FACTS clinical trial simulation software and designing Bayesian adaptive trials.">
+  <meta name="author" content="Nicholas S. Berry">
+  <meta property="og:title" content="Nicholas S. Berry">
+  <meta property="og:description" content="Senior Statistical Scientist at Berry Consultants, developing the FACTS trial simulation software.">
+  <meta property="og:url" content="https://berryni.github.io/">
+  <link rel="canonical" href="https://berryni.github.io/">
 
-<!-- Run jekyll serve, and go to localhost:4000 in web browser -->
+  <script>document.documentElement.className += ' js';</script>
 
-<!DOCTYPE html><html><h1><a id="About_0"></a>About</h1>
-<head><meta charset="utf-8"><title>About</title><style></style></head><body id="preview">
-<p>I am a Ph.D. Candidate in Statistics at Iowa State University, and graduated from Texas A&amp;M in 2013. My research is primarily in unsupervised learning, specifically clustering. I have also done research in forensic handwriting analysis and used graphical models to perform continuous biometric authentication and detect underlying graph structures for bacterial microbiomes.</p>
-<h3><a id="Contact_me_8"></a>Contact me</h3>
-<p>Durham Center 195<br />613 Morrill Rd.<br />Ames, IA 50011-2100</p>
-<p><a href="mailto:berryni@iastate.edu">berryni@iastate.edu</a></p>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600&amp;family=Roboto+Serif:ital,opsz,wght@0,8..144,400;0,8..144,500;1,8..144,400&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
 
-</body></html>
+<body>
+<div class="ground" data-report-root>
+<div class="sheet">
+
+<canvas class="sprite-layer" data-sprite aria-hidden="true"></canvas>
+
+<!--
+  Revision history for the slider, oldest first. The last entry is the
+  current one. If you change it, also update the matching text in the page
+  below (title block, AUTHOR/AFFILIATION/KEYWORDS, abstract), which is what
+  shows before the script runs and what search engines read.
+
+  `photo` / `photoAlt` / `caption` set the Fig. 1 picture and its caption
+  for that revision.
+
+  `subtitle` is a list of typing steps: `text` is typed as-is; a step with
+  `wrong`/`right` types the wrong letters, pauses, backspaces over them, then
+  types the right ones.
+-->
+<script type="application/json" id="revisions">
+[
+  {
+    "tag": "Rev. 0",
+    "caption": "College Nick",
+    "photo": "/images/nick-college.jpg",
+    "photoAlt": "Nick Berry in college",
+    "year": "2013",
+    "stage": "undergrad",
+    "author": "Nicholas S. Berry",
+    "affiliation": "Texas A&M University",
+    "keywords": "applied mathematics; statistics",
+    "subtitle": [
+      { "text": "BS in Applied Mathematics, emphasis in Statistics, at Texas A&M." }
+    ],
+    "abstract": "I went looking for a way to play boardgames and think about sports as my career. I didn't get that, but I figured out that I liked statistics and programming."
+  },
+  {
+    "tag": "Rev. 1",
+    "caption": "Grad School Nick",
+    "photo": "/images/nick-grad-school.jpg",
+    "photoAlt": "Nick Berry in grad school",
+    "year": "2016–19",
+    "stage": "grad school",
+    "author": "Nicholas S. Berry, MS",
+    "affiliation": "Dept. of Statistics, Iowa State University",
+    "keywords": "K-means; clustering; forensic statistics",
+    "subtitle": [
+      { "text": "PhD student in Statistics at Iowa State." }
+    ],
+    "abstract": "Dissertation: Extending K-means. Developed TiK-means, a transformation-infused K-means algorithm for skewed groups, and worked on clustering methods for statistical writership analysis of handwriting."
+  },
+  {
+    "tag": "Rev. 2",
+    "caption": "COVID Nick",
+    "photo": "/images/nick-covid.jpg",
+    "photoAlt": "Nick Berry during the pandemic",
+    "year": "2019–23",
+    "stage": "early career",
+    "author": "Nicholas S. Berry, PhD",
+    "affiliation": "Berry Consultants, LLC",
+    "keywords": "Bayesian adaptive design; platform trials; dose finding; COVID-19",
+    "subtitle": [
+      { "text": "Statistical Scientist at Berry Consultants, designing adaptive clinical trials." }
+    ],
+    "abstract": "Joined Berry Consultants in 2019 and after less than a year of trial design work in more traditional indications I moved straight into pandemic work: the PRINCIPLE platform trial of community COVID-19 treatments, the PANORAMIC platform trial, and a prognostic mortality model for hospitalized patients took up most of my time. Alongside that, I worked on adaptive designs outside COVID-19 — implementation of I-Spy2, a storage-duration-ranging non-inferiority design for the CHIPS chilled-platelet study in cardiac surgery, GBM AGILE, and more."
+  },
+  {
+    "tag": "Rev. 3",
+    "caption": "Current Nick",
+    "photo": "/images/nick-current.jpg",
+    "photoAlt": "Nick Berry, current headshot",
+    "year": "2026",
+    "stage": "current",
+    "author": "Nicholas S. Berry, PhD",
+    "affiliation": "Berry Consultants, LLC · Austin, TX",
+    "keywords": "trial simulation software; FACTS; Bayesian adaptive design",
+    "subtitle": [
+      { "text": "Senior Statistical Scientist at Berry Consultants, developing the FACTS trial simulation software." }
+    ],
+    "abstract": "Biostatistician now working mostly on the software side of Berry Consultants, developing FACTS, our software for designing and simulating adaptive clinical trials. I still design and implement trials as well, especially Bayesian adaptive trials including platform trials. Results from trials I’ve designed appear in NEJM, JAMA, The Lancet, and Clinical Trials, and more."
+  }
+]
+</script>
+
+<header class="tr-head">
+  <div class="tr-meta tr-meta-3">
+    <span>Tech. Report No. 2026-01</span>
+    <span><a href="https://www.berryconsultants.com" target="_blank" rel="noopener">Berry Consultants</a> · Austin, TX</span>
+    <span><span data-bind="tag">Rev. 3</span> · <span data-bind="year">2026</span></span>
+  </div>
+  <div class="rule-double"></div>
+  <div class="tr-revbar js-only">
+    <label for="tr-rev">REVISION HISTORY</label>
+    <input id="tr-rev" type="range" min="0" step="1">
+    <div class="tr-revbtns" data-rev-buttons></div>
+  </div>
+</header>
+
+<section class="tr-title">
+  <div class="tr-title-text">
+    <p class="eyebrow">TECHNICAL REPORT — PERSONAL HOMEPAGE</p>
+    <h1 class="tr-name type-grid" data-plat>
+      <span class="ghost" aria-hidden="true">Nicholas S. Berry_</span>
+      <span class="typed" aria-hidden="true"><span data-type="name">Nicholas S. Berry</span><span class="tr-caret" data-caret="name">_</span></span>
+      <span class="sr-only">Nicholas S. Berry</span>
+    </h1>
+    <p class="tr-sub type-grid">
+      <span class="ghost" aria-hidden="true" data-ghost="sub">Senior Statistical Scientist at Berry Consultants, developing the FACTS trial simulation software._</span>
+      <span class="typed" aria-hidden="true"><span data-type="sub">Senior Statistical Scientist at Berry Consultants, developing the FACTS trial simulation software.</span><span class="tr-caret" data-caret="sub" hidden>_</span></span>
+      <span class="sr-only" data-bind="sub">Senior Statistical Scientist at Berry Consultants, developing the FACTS trial simulation software.</span>
+    </p>
+  </div>
+  <div class="tr-stamp-wrap">
+    <div class="tr-stamp" data-plat>
+      <span data-stamp="current">DISTRIBUTION<br>UNLIMITED<br><small>open access · 2026</small></span>
+      <span data-stamp="old" hidden>SUPERSEDED<br><small>see Rev. 3 · current</small></span>
+    </div>
+  </div>
+</section>
+
+<dl class="tr-facts" data-plat>
+  <div><dt>AUTHOR</dt><dd data-bind="author">Nicholas S. Berry, PhD</dd></div>
+  <div><dt>AFFILIATION</dt><dd data-bind="affiliation">Berry Consultants, LLC · Austin, TX</dd></div>
+  <div><dt>CORRESPONDENCE</dt><dd><a href="mailto:nick@berryconsultants.net">nick@berryconsultants.net</a></dd></div>
+  <div><dt>KEYWORDS</dt><dd data-bind="keywords">trial simulation software; FACTS; Bayesian adaptive design</dd></div>
+</dl>
+
+<nav class="tr-toc" aria-label="Contents" data-plat>
+  <p>CONTENTS</p>
+  <div>
+    <a href="#abstract">1.0 Abstract</a>
+    <a href="#research">2.0 Research</a>
+    <a href="#pubs">3.0 Publications</a>
+    <a href="#talks">4.0 Presentations</a>
+    <a href="/NickBerryCV.pdf" target="_blank" rel="noopener">Appendix A — CV (PDF) ↗</a>
+  </div>
+</nav>
+
+<div class="tr-body">
+  <main class="tr-main">
+
+    <section id="abstract" class="tr-abstract" data-plat>
+      <h2>ABSTRACT · <span data-bind="tag">Rev. 3</span></h2>
+      <p class="type-grid">
+        <span class="ghost" aria-hidden="true" data-ghost="abstract">Biostatistician now working mostly on the software side of Berry Consultants, developing FACTS, our software for designing and simulating adaptive clinical trials. I still design and implement trials as well, especially Bayesian adaptive trials including platform trials. Results from trials I’ve designed appear in NEJM, JAMA, The Lancet, and Clinical Trials, and more._</span>
+        <span class="typed" aria-hidden="true"><span data-type="abstract">Biostatistician now working mostly on the software side of Berry Consultants, developing FACTS, our software for designing and simulating adaptive clinical trials. I still design and implement trials as well, especially Bayesian adaptive trials including platform trials. Results from trials I’ve designed appear in NEJM, JAMA, The Lancet, and Clinical Trials, and more.</span><span class="tr-caret" data-caret="abstract" hidden>_</span></span>
+        <span class="sr-only" data-bind="abstract">Biostatistician now working mostly on the software side of Berry Consultants, developing FACTS, our software for designing and simulating adaptive clinical trials. I still design and implement trials as well, especially Bayesian adaptive trials including platform trials. Results from trials I’ve designed appear in NEJM, JAMA, The Lancet, and Clinical Trials, and more.</span>
+      </p>
+    </section>
+
+    <section id="research">
+      <h2 class="tr-h2" data-plat>2.0&#160;&#160;RESEARCH</h2>
+      <div class="tr-topic">
+        <h3 data-plat>2.1&#160;&#160;Platform trials in infectious disease</h3>
+        <p>Statistical design and analysis for the PRINCIPLE and PANORAMIC COVID-19 platform trials in the UK, which tested community treatments from azithromycin and inhaled budesonide to molnupiravir and nirmatrelvir–ritonavir. Results appeared in <i>The Lancet</i> and the <i>New England Journal of Medicine</i>.</p>
+      </div>
+      <div class="tr-topic">
+        <h3 data-plat>2.2&#160;&#160;Oncology and critical care</h3>
+        <p>Bayesian adaptive designs for GBM AGILE, the global phase 2/3 platform trial in glioblastoma, as well as I-SPY2, the CHIPS cold-stored platelet trial in cardiac surgery, and RESCUE-3 in ventilator weaning.<sup class="accent"><a href="#fn1" id="fnref1" aria-label="Footnote 1">1</a></sup></p>
+      </div>
+      <div class="tr-topic">
+        <h3 data-plat>2.3&#160;&#160;Methods and simulation</h3>
+        <p>Modelling time trends in multi-arm platform trials, using early and longitudinal endpoint data to make adaptive decisions sooner, and simulation-guided trial design. Developer of the FACTS clinical trial simulation software.</p>
+      </div>
+    </section>
+
+    <section id="pubs">
+      <h2 class="tr-h2" data-plat>3.0&#160;&#160;SELECTED PUBLICATIONS</h2>
+      <ol class="tr-pubs">
+        <li data-plat><span>[1]</span><span>Butler CC, …, <b>Berry NS</b>, … Little P. “Oral nirmatrelvir–ritonavir for Covid-19 in higher-risk outpatients.” <i>New England Journal of Medicine</i> 394(16):1583–1594, 2026. <a href="https://doi.org/10.1056/NEJMoa2502457">doi</a></span></li>
+        <li data-plat><span>[2]</span><span>Spinella PC, …, <b>Berry NS</b>, … Steiner ME. “Cold and room-temperature platelets in cardiac surgery: the CHIPS randomized clinical trial.” <i>JAMA</i>, 2026. <a href="https://doi.org/10.1001/jama.2026.13328">doi</a></span></li>
+        <li data-plat><span>[3]</span><span>Wen PY, Berry DA, …; GBM AGILE Regorafenib Study Group (incl. <b>Berry NS</b>). “Evaluation of regorafenib in newly diagnosed and recurrent glioblastoma.” <i>Journal of Clinical Oncology</i> 44(18):1676–1686, 2026. <a href="https://doi.org/10.1200/JCO-25-01137">doi</a></span></li>
+        <li data-plat><span>[4]</span><span>Butler CC, …, <b>Berry NS</b>, … Little P. “Molnupiravir plus usual care versus usual care alone as early treatment for adults with COVID-19 (PANORAMIC).” <i>The Lancet</i> 401(10373):281–293, 2023. <a href="https://doi.org/10.1016/S0140-6736(22)02597-1">doi</a></span></li>
+        <li data-plat><span>[5]</span><span>Saville BR, Berry DA, <b>Berry NS</b>, Viele K, Berry SM. “The Bayesian time machine: accounting for temporal drift in multi-arm platform trials.” <i>Clinical Trials</i> 19(5):490–501, 2022. <a href="https://doi.org/10.1177/17407745221112013">doi</a></span></li>
+        <li data-plat><span>[6]</span><span>Berry LR, Lorenzi E, <b>Berry NS</b>, Crawford AM, Jacko P, Viele K. “Effects of allocation method and time trends on identification of the best arm in multi-arm trials.” <i>Statistics in Biopharmaceutical Research</i> 16(4):512–525, 2024. <a href="https://doi.org/10.1080/19466315.2023.2298961">doi</a></span></li>
+      </ol>
+      <p class="tr-note">6 of 22 peer-reviewed papers shown. Full list in <a href="/NickBerryCV.pdf" target="_blank" rel="noopener">Appendix A — CV</a>.</p>
+    </section>
+
+    <section id="talks">
+      <h2 class="tr-h2" data-plat>4.0&#160;&#160;INVITED PRESENTATIONS</h2>
+      <div class="tr-table-wrap" data-plat>
+        <table class="tr-table">
+          <thead><tr><th>YEAR</th><th>VENUE</th><th>TITLE</th></tr></thead>
+          <tbody>
+            <tr><td>2026</td><td>ASA Biopharm. Section RISW (upcoming)</td><td>“Design, Simulate, Refine: Simulation-Guided Clinical Trial Design in the Age of ICH E20”</td></tr>
+            <tr><td>2026</td><td>Medtronic Biostatistics Grand Rounds</td><td>“From Concept to Approval: The Statistical Journey of the INFUSE TLIF Trial”</td></tr>
+            <tr><td>2025</td><td>ASA Biopharm. Section RISW</td><td>“Statistical Efficiency in Adaptive Trials from Incorporating Early Endpoint Data”</td></tr>
+            <tr><td>2025</td><td>University of Bath</td><td>“Getting the Most Out of Patient Data: Improving Efficiency in Adaptive Trials Through Longitudinal Models”</td></tr>
+            <tr><td>2024</td><td>Medical University of Vienna</td><td>“Modelling Time Trends in COVID-19 Platform Trials: An Example from PRINCIPLE”</td></tr>
+            <tr><td>2023</td><td>ASA Biopharm. Section RISW</td><td>“Modelling Time Trends in COVID-19 Platform Trials: An Example from PRINCIPLE”</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <aside class="tr-aside">
+    <figure data-plat>
+      <div class="tr-portrait">
+        <img src="/images/nick-current.jpg" alt="Nick Berry, current headshot" width="400" height="500" data-photo>
+      </div>
+      <figcaption><b>Fig. 1.</b> <span data-bind="caption">Current Nick</span>.</figcaption>
+    </figure>
+
+    <div class="tr-footnote" id="fn1" data-plat><sup class="accent"><a href="#fnref1" aria-label="Back to text">1</a></sup> Member, GBM AGILE Leadership Council (2026–) and Publication Committee (2025–).</div>
+
+    <figure class="tr-depth js-only" data-plat>
+      <div class="tr-chart">
+        <div class="tr-chart-y"><span>0%</span><span>50%</span><span>100%</span></div>
+        <div class="tr-chart-plot" role="img" data-depth-chart aria-label="Bar chart of how far down this page you have read over the last 40 seconds."></div>
+        <span></span>
+        <div class="tr-chart-x"><span>−40 s</span><span>now</span></div>
+      </div>
+      <figcaption><b>Fig. 2.</b> Reading depth of the present reader versus time (n = 1). Current depth <span data-bind="depthNow">0%</span>; maximum <span data-bind="depthMax">0%</span>; time on page <span data-bind="elapsed">0 s</span>.</figcaption>
+    </figure>
+
+  </aside>
+</div>
+
+<footer class="tr-foot" data-plat>
+  <div class="rule-double"></div>
+  <span>— END OF REPORT —</span>
+  <span>Typeset in Roboto Mono &amp; Roboto Serif · last revised 2026-10-13</span>
+</footer>
+
+</div>
+</div>
+
+<script src="/assets/js/report.js"></script>
+</body>
+</html>
